@@ -52,34 +52,44 @@ class ModelTraining:
     def train_model(self, X_train, y_train):
         try:
             logger.info("Starting model training with RandomizedSearchCV")
-            logger.info("Initializing LGBMClassifier")
-            lgbm_model = LGBMClassifier(random_state=self.random_search_params['random_state'])
-
-            logger.info("starting hyperparameter tuning using RandomizedSearchCV")
-
-            random_search = RandomizedSearchCV(
-                estimator=lgbm_model,
-                param_distributions=self.params_dist,
-                n_iter=self.random_search_params['n_iter'],
-                cv=self.random_search_params['cv'],
-                n_jobs=self.random_search_params['n_jobs'],
-                verbose=self.random_search_params['verbose'],
+            logger.info("Initializing LGBMClassifier with Best parameters")
+            lgbm_model = LGBMClassifier(
                 random_state=self.random_search_params['random_state'],
-                scoring=self.random_search_params['scoring']
-            )
+                boosting_type='gbdt',
+                learning_rate=0.13022300234864176,
+                max_depth=28,
+                n_estimators=230,
+                num_leaves=789
+                )
+            
+            lgbm_model.fit(X_train, y_train)
+            logger.info("Initial model training completed")
+            return lgbm_model
+            # logger.info("starting hyperparameter tuning using RandomizedSearchCV")
 
-            logger.info("starting hyperparameter tuning using RandomizedSearchCV")
+            # random_search = RandomizedSearchCV(
+            #     estimator=lgbm_model,
+            #     param_distributions=self.params_dist,
+            #     n_iter=self.random_search_params['n_iter'],
+            #     cv=self.random_search_params['cv'],
+            #     n_jobs=self.random_search_params['n_jobs'],
+            #     verbose=self.random_search_params['verbose'],
+            #     random_state=self.random_search_params['random_state'],
+            #     scoring=self.random_search_params['scoring']
+            # )
 
-            random_search.fit(X_train, y_train)
+            # logger.info("starting hyperparameter tuning using RandomizedSearchCV")
 
-            logger.info("Hyparameter tuning completed")
+            # random_search.fit(X_train, y_train)
 
-            best_params = random_search.best_params_
-            best_lgmb_model = random_search.best_estimator_
+            # logger.info("Hyparameter tuning completed")
 
-            logger.info(f"Best hyperparameters: {best_params}")
+            # best_params = random_search.best_params_
+            # best_lgmb_model = random_search.best_estimator_
 
-            return best_lgmb_model
+            # logger.info(f"Best hyperparameters: {best_params}")
+
+            # return best_lgmb_model
         except Exception as e:
             logger.error(f"Error occurred during model training: {e}")
             raise CustomException("Failed to train the model", e)
