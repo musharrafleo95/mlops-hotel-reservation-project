@@ -5,6 +5,7 @@ scikit-learn
 pyyaml
 mlflow
 lightgbm
+flask
 
 # not necessary, will be removed later
 ipykernel # For Jupyter notebook support
