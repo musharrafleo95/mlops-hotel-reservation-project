@@ -1,0 +1,15 @@
+pandas
+numpy
+google-cloud-storage
+scikit-learn
+pyyaml
+mlflow
+lightgbm
+
+# not necessary, will be removed later
+ipykernel # For Jupyter notebook support
+matplotlib # For plotting graphs
+seaborn # For data visualization
+statsmodels # For statistical modeling
+imbalanced-learn # For handling imbalanced datasets
+xgboost 
