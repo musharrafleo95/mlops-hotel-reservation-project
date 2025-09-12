@@ -1,3 +1,4 @@
+# this dockerfile is used to create a custom Jenkins image with Docker-in-Docker (DinD) support
 
 # Use the Jenkins image as the base image
 FROM jenkins/jenkins:lts
