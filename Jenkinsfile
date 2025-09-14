@@ -16,5 +16,16 @@ pipeline{
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/musharrafleo95/mlops-hotel-reservation-project.git']])
             }}
         // stage end
+        stage('Setting up our Virtual Enviornment and installing dependencies'){
+            steps{
+                echo 'Setting up our Virtual Enviornment and installing dependencies.............'
+                sh '''
+                python -m venv ${VENV_DIR}
+                . ${VENV_DIR}/bin/activate
+                pip install --upgrade pip
+                pip install -e .
+                '''
+            }}
+        // stage end
     }
 }
