@@ -9,11 +9,13 @@ pipeline{
     }
 
     stages{
+        
         stage('Cloning Github repo to Jenkins'){
             steps{
                 echo 'Cloning Github repo to Jenkins.............'
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/musharrafleo95/mlops-hotel-reservation-project.git']])
             }}
+
 
         stage('Setting up our Virtual Enviornment and installing dependencies'){
             steps{
@@ -25,7 +27,8 @@ pipeline{
                 pip install -e .
                 '''
             }}
-
+        
+        
         stage('Building and Pushing Docker image to GCR'){
             steps{
                 withCredentials([file(credentialsId : 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){

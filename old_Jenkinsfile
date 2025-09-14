@@ -1,0 +1,24 @@
+pipeline{
+    agent any
+
+    environment{
+        VENV_DIR = '.venv'
+        GCP_PROJECT = "mlops-471718"
+        GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
+
+    }
+
+    stages{
+        //  stage start
+        stage('Cloning Github repo to Jenkins'){
+            steps{
+                echo 'Cloning Github repo to Jenkins.............'
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/musharrafleo95/mlops-hotel-reservation-project.git']])
+            }}
+        //  stage start
+
+
+        
+    
+        }
+}
